@@ -1,0 +1,24 @@
+{
+  "name": "openai-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-specifier-resolution=node app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "openai": "^3.1.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.34.0",
+    "eslint": "^8.30.0"
+  }
+}
