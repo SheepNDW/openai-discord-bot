@@ -9,7 +9,6 @@ client.once('ready', () => {
 })
 
 client.on('messageCreate', async (message) => {
-  console.log(`使用者${message.author.username}發送的訊息：`, message.content)
   if (message.author?.bot) return
   if (message.channel.id === DISCORD_CHANNEL_ID) messageHandler(message)
 })

@@ -1,5 +1,6 @@
 import config from '../config'
 import { replyMessage } from '../utils/replyMessage'
+import { aiAssistant } from './aiAssistant'
 
 const { DISCORD_CHANNEL_ID, DISCORD_CHANNEL_MAX_MESSAGE } = config
 const { defaultReplyMessage, errorMessage } = replyMessage()
@@ -9,6 +10,8 @@ const { defaultReplyMessage, errorMessage } = replyMessage()
  * @param {import("discord.js").Message} message
  */
 export async function messageHandler(message) {
+  console.log(`「${message.channel.name}」${message.author.username}：${message.content} `)
+
   if (message.channel.id === DISCORD_CHANNEL_ID) {
     let cacheMsg = null
     try {
@@ -26,9 +29,11 @@ export async function messageHandler(message) {
           .reverse()
           .filter(msg => msg !== defaultReplyMessage && msg !== '')
           .join('\n')
-        console.log(prompt)
-        await cacheMsg.delete()
       }
+
+      const aiResponse = await aiAssistant(prompt)
+      await cacheMsg.delete()
+      message.reply(aiResponse)
     } catch (error) {
       console.log(error)
 
