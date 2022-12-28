@@ -10,7 +10,7 @@ client.once('ready', () => {
 
 client.on('messageCreate', async (message) => {
   if (message.author?.bot) return
-  if (message.channel.id === DISCORD_CHANNEL_ID) messageHandler(message)
+  if (message.channel.id === DISCORD_CHANNEL_ID) messageHandler(client, message)
 })
 
 client.login(DISCORD_BOT_TOKEN)

@@ -7,12 +7,13 @@ const { defaultReplyMessage, errorMessage } = replyMessage()
 
 /**
  * 處理 Bot 回應訊息
+ * @param {import("discord.js").Client} client
  * @param {import("discord.js").Message} message
  */
-export async function messageHandler(message) {
+export async function messageHandler(client, message) {
   console.log(`「${message.channel.name}」${message.author.username}：${message.content} `)
 
-  if (message.channel.id === DISCORD_CHANNEL_ID) {
+  if (message.channel.id === DISCORD_CHANNEL_ID && message.content.includes(`<@${client.user.id}>`)) {
     let cacheMsg = null
     try {
       cacheMsg = await message.channel.send(defaultReplyMessage)
