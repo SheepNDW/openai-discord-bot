@@ -18,11 +18,11 @@ export async function messageHandler(message) {
       cacheMsg = await message.channel.send(defaultReplyMessage)
 
       let prompt = ''
-      if (Number(DISCORD_CHANNEL_MAX_MESSAGE) === 1) {
+      if (DISCORD_CHANNEL_MAX_MESSAGE === 1) {
         prompt = message.content
       } else {
         const channelMessageData = await message.channel.messages.fetch({
-          limit: Number(DISCORD_CHANNEL_MAX_MESSAGE) + 1,
+          limit: DISCORD_CHANNEL_MAX_MESSAGE + 1,
         })
         const channelMessageHistory = channelMessageData.map(msg => msg.content)
         prompt = channelMessageHistory

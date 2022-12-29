@@ -7,7 +7,7 @@ export const aiAssistant = async (prompt) => {
   const { data } = await openAI.createCompletion({
     model: OPEN_AI_GPT_MODEL,
     prompt,
-    max_tokens: Number(OPEN_AI_MAX_TOKENS),
+    max_tokens: OPEN_AI_MAX_TOKENS,
   })
   console.log('data: ', data)
   const [choices] = data.choices
