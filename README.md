@@ -4,7 +4,7 @@ inspired by [hermione](https://github.com/hsiangfeng/hermione)
 
 ## Project Setup
 
-node version: v16.18.1
+node version: v18.14.2
 
 ```sh
 pnpm install
