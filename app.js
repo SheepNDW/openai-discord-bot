@@ -10,7 +10,7 @@ client.once('ready', (c) => {
 
 client.on('messageCreate', async (message) => {
   if (message.author?.bot) return
-  messageHandler(message)
+  messageHandler(message, client)
 })
 
 client.login(DISCORD_BOT_TOKEN)
