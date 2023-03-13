@@ -1,29 +1,32 @@
 import config from '../config'
 import { channelMessageHandler } from './channel'
+import { forumMessageHandler } from './forum'
 
-const { DISCORD_CHANNEL_ID, DISCORD_MODE } = config
+const { DISCORD_CHANNEL_ID, DISCORD_FORUM_ID, DISCORD_MODE } = config
 
 /**
  * 處理 Bot 回應訊息
  * @param {import("discord.js").Message} message
+ * @param {import("discord.js").Client} client
  */
-export async function messageHandler(message) {
+export async function messageHandler(message, client) {
   console.log(`「${message.channel.name}」${message.author.username}：${message.content} `)
-
-  // 只有在自己發話時會產生回應 for development
-  if (message.author.tag !== 'Sheep#2929') return
 
   switch (DISCORD_MODE) {
     case 'channel':
-      if (message.channel.id === DISCORD_CHANNEL_ID) channelMessageHandler(message)
+      if (message.channel.id !== DISCORD_CHANNEL_ID && message.mentions.has(client.user)) return
+      channelMessageHandler(message)
       break
     case 'forum':
-      console.log('forum only mode')
+      if (message.channel.parentId !== DISCORD_FORUM_ID) return
+      forumMessageHandler(message)
       break
     case 'all':
-      console.log('all mode')
+      if (message.channel.id === DISCORD_CHANNEL_ID && message.mentions.has(client.user)) channelMessageHandler(message)
+      if (message.channel.parentId === DISCORD_FORUM_ID) forumMessageHandler(message)
       break
     default:
-      throw new Error('invalid mode')
+      console.error('invalid mode')
+      break
   }
 }

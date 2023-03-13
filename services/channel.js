@@ -2,7 +2,7 @@ import config from '../config'
 import { replyMessage } from '../utils/replyMessage'
 import { aiAssistant } from './aiAssistant'
 
-const { DISCORD_CHANNEL_MAX_MESSAGE, OPEN_AI_GPT_PERSONA } = config
+const { DISCORD_CHANNEL_MAX_MESSAGE, OPEN_AI_GPT_PERSONA, DISCORD_BOT_CLIENT_ID } = config
 const { defaultReplyMessage, errorMessage } = replyMessage()
 
 /**
@@ -18,7 +18,7 @@ export async function channelMessageHandler(message) {
     if (DISCORD_CHANNEL_MAX_MESSAGE === 1) {
       messages.push({
         role: 'user',
-        content: message.content,
+        content: message.content.split(`<@${DISCORD_BOT_CLIENT_ID}>`)[1].trim(),
       })
     } else {
       const channelMessageData = await message.channel.messages.fetch({
