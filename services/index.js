@@ -10,11 +10,11 @@ const { DISCORD_CHANNEL_ID, DISCORD_FORUM_ID, DISCORD_MODE } = config
  * @param {import("discord.js").Client} client
  */
 export async function messageHandler(message, client) {
-  console.log(`「${message.channel.name}」${message.author.username}：${message.content} `)
+  // console.log(`「${message.channel.name}」${message.author.username}：${message.content} `)
 
   switch (DISCORD_MODE) {
     case 'channel':
-      if (message.channel.id !== DISCORD_CHANNEL_ID && message.mentions.has(client.user)) return
+      if (message.channel.id !== DISCORD_CHANNEL_ID || !message.mentions.has(client.user)) return
       channelMessageHandler(message)
       break
     case 'forum':

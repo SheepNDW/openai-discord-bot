@@ -10,15 +10,21 @@ const { defaultReplyMessage, errorMessage } = replyMessage()
  * @param {import("discord.js").Message} message
  */
 export async function channelMessageHandler(message) {
+  const messageContent = message.content.split(`<@${DISCORD_BOT_CLIENT_ID}>`)[1].trim()
+  if (!messageContent) {
+    message.reply('請正確輸入內文')
+    return
+  }
+
   let cacheMsg = null
+
   try {
     cacheMsg = await message.channel.send(defaultReplyMessage)
-
     let messages = []
     if (DISCORD_CHANNEL_MAX_MESSAGE === 1) {
       messages.push({
         role: 'user',
-        content: message.content.split(`<@${DISCORD_BOT_CLIENT_ID}>`)[1].trim(),
+        content: messageContent,
       })
     } else {
       const channelMessageData = await message.channel.messages.fetch({
