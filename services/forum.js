@@ -42,7 +42,7 @@ export async function forumMessageHandler(message) {
     await cacheMsg.delete()
     message.reply(aiResponse)
   } catch (error) {
-    console.err(error)
+    console.error(error)
 
     await cacheMsg.delete()
 
